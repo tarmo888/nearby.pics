@@ -67,7 +67,7 @@ jQuery(function($){
 	var longitude = getHashValue('lon');
 
 	if (!access_token) {
-		var redirect_url = window.location.protocol + '//'+ window.location.hostname +':'+ window.location.port + window.location.pathname;
+		var redirect_url = window.location.protocol + '//'+ window.location.hostname + (window.location.port ? ':'+ window.location.port : '') + window.location.pathname;
 		window.location = 'https://api.instagram.com/oauth/authorize/?client_id=a4e5c460c88146649afff8f67ab70d40&redirect_uri='+ redirect_url +'&response_type=token&scope=public_content';
 		return false;
 	}
