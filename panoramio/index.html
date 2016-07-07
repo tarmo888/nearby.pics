@@ -170,7 +170,7 @@ jQuery(function($){
 			path: function(page) {
 				var p1 = new LatLon(latitude, longitude);
 				var bbox = p1.boundingBox(500);
-				return 'http://www.panoramio.com/map/get_panoramas.php?set=public&from=0&to=14&size=medium&mapfilter=false&minx='+ bbox.sw.lon +'&miny='+ bbox.sw.lat +'&maxx='+ bbox.ne.lon +'&maxy='+ bbox.ne.lat;
+				return 'https://ssl.panoramio.com/map/get_panoramas.php?set=public&from=0&to=14&size=medium&mapfilter=false&minx='+ bbox.sw.lon +'&miny='+ bbox.sw.lat +'&maxx='+ bbox.ne.lon +'&maxy='+ bbox.ne.lat;
 			}
 		});
 	}
