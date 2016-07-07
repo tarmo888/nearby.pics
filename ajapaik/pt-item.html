@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>nearby.pics/ajapaik</title>
+	<link rel="stylesheet" href="gfx/reset.css">
+	<link rel="stylesheet" href="gfx/style.css">
+	<style>
+	.item-single {
+		position: relative;
+		float:left;
+		max-width: 470px;
+		top: auto;
+		box-sizing: border-box;
+		margin: 20px 20px 0 20px;
+		z-index: 1;
+		padding: 15px;
+		line-height: 1.5;
+		background-color: #fff;
+		box-shadow: 0 1px 3px rgba(34, 25, 25, .4);
+		-moz-box-shadow: 0 1px 3px rgba(34, 25, 25, .4);
+		-webkit-box-shadow: 0 1px 3px rgba(34, 25, 25, .4);
+		filter: progid:DXImageTransform.Microsoft.Shadow(color = #adacac, direction = 135, strength = 2);
+	}
+	.item-single.thumb {
+		max-width: 78px;
+		margin-right: 0px;
+		padding: 5px;
+	}
+	.item-single.active {
+		background: silver;
+	}
+	.item-single img {
+		display: block;
+		width: 100%;
+	}
+	.item-single:hover .item-info {
+		display: none;
+	}
+	.item-info {
+		width: 100%;
+	}
+	</style>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-61883287-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</head>
+<body>
+<div id="header">
+	<a href="./pt.html"><h3>nearby.pics/ajapaik</h3></a>
+</div>
+<div id="container">
+	<div id="waterfall-loading">
+		<div style="text-align:center;padding:10px 0; color:#999;"><img src="data:image/gif;base64,R0lGODlhEAALAPQAAP///zMzM+Li4tra2u7u7jk5OTMzM1hYWJubm4CAgMjIyE9PT29vb6KiooODg8vLy1JSUjc3N3Jycuvr6+Dg4Pb29mBgYOPj4/X19cXFxbOzs9XV1fHx8TMzMzMzMzMzMyH5BAkLAAAAIf4aQ3JlYXRlZCB3aXRoIGFqYXhsb2FkLmluZm8AIf8LTkVUU0NBUEUyLjADAQAAACwAAAAAEAALAAAFLSAgjmRpnqSgCuLKAq5AEIM4zDVw03ve27ifDgfkEYe04kDIDC5zrtYKRa2WQgAh+QQJCwAAACwAAAAAEAALAAAFJGBhGAVgnqhpHIeRvsDawqns0qeN5+y967tYLyicBYE7EYkYAgAh+QQJCwAAACwAAAAAEAALAAAFNiAgjothLOOIJAkiGgxjpGKiKMkbz7SN6zIawJcDwIK9W/HISxGBzdHTuBNOmcJVCyoUlk7CEAAh+QQJCwAAACwAAAAAEAALAAAFNSAgjqQIRRFUAo3jNGIkSdHqPI8Tz3V55zuaDacDyIQ+YrBH+hWPzJFzOQQaeavWi7oqnVIhACH5BAkLAAAALAAAAAAQAAsAAAUyICCOZGme1rJY5kRRk7hI0mJSVUXJtF3iOl7tltsBZsNfUegjAY3I5sgFY55KqdX1GgIAIfkECQsAAAAsAAAAABAACwAABTcgII5kaZ4kcV2EqLJipmnZhWGXaOOitm2aXQ4g7P2Ct2ER4AMul00kj5g0Al8tADY2y6C+4FIIACH5BAkLAAAALAAAAAAQAAsAAAUvICCOZGme5ERRk6iy7qpyHCVStA3gNa/7txxwlwv2isSacYUc+l4tADQGQ1mvpBAAIfkECQsAAAAsAAAAABAACwAABS8gII5kaZ7kRFGTqLLuqnIcJVK0DeA1r/u3HHCXC/aKxJpxhRz6Xi0ANAZDWa+kEAA7" alt=""><div>Loading photo...</div></div>
+	</div>
+</div>
+<div class="provided-by">
+	This site uses the Ajapaik API, but is not endorsed or certified by Ajapaik.<br />
+	Photos displayed on this site are under the copyright of their owners.
+</div>
+<script type="text/x-handlebars-template" id="item-single-tpl">
+{{#result}}
+	<div class="item-single">
+		<a href="{{photo_link}}" target="_blank"><img src="{{image_url}}" /></a>
+		<div class="item-info">{{source_data.description}} {{source_key}}</div>
+	</div>
+	{{#if rephotos}}
+		{{#rephotos}}
+		<div class="item-single thumb">
+			<a href="{{photo_link}}" title="{{fb_user_name}}" rel="{{image_url}}"><img src="{{image_thumb}}" /></a>
+		</div>
+		{{/rephotos}}
+		<div class="item-single thumb active">
+			<a href="{{photo_link}}" title="{{fb_user_name}}" rel="{{image_url}}"><img src="{{image_thumb}}" /></a>
+		</div>
+	{{/if}}
+{{/result}}
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="js/libs/handlebars/handlebars.js"></script>
+<script>
+jQuery(function($){
+	$( document ).on('click', '.item-single.thumb a', function(e) {
+		e.preventDefault();
+		$cliked_thumb = $(this);
+		$('.item-single img').first().animate({ opacity: 0 }, function(){
+			$('.item-single').removeClass('active');
+			$cliked_thumb.parents('.item-single').addClass('active');
+			$('.item-single img').first().attr('src', $cliked_thumb.attr('rel')).load(function() {
+				$('.item-single img').first().animate({ opacity: 1 });
+			});
+		});
+	});
+
+	$( document ).on('click', 'a[target="_blank"]', function(e) {
+		var url = $(this).attr('href');
+		if (typeof ga != 'undefined') {
+			ga('send', 'event', 'new window', 'click', url);
+		}
+	});
+
+	function getHashValue(key) {
+		var matches = location.hash.match(new RegExp(key+'=([^&]*)'));
+		return matches ? matches[1] : null;
+	}
+
+	var photo_id = getHashValue('id');
+
+	if (photo_id) {
+		$.get('http://api.ajapaik.ee/api-v1.php', {'action': 'photo', 'photo_id': photo_id}, function(response) {
+						tpl = $('#item-single-tpl').html();
+						template = Handlebars.compile(tpl);
+						$('#container').html(template(response));
+		}, 'json');
+	}
+	else {
+		$('#waterfall-loading').find('div').first().html('No photo');
+	}
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>nearby.pics/500px</title>
+	<link rel="stylesheet" href="gfx/reset.css">
+	<link rel="stylesheet" href="gfx/style.css">
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-61883287-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</head>
+<body>
+<div id="header">
+	<a href="./"><h3>nearby.pics/500px</h3></a>
+</div>
+<div id="container">
+	<div id="waterfall-loading">
+		<div style="text-align:center;padding:10px 0; color:#999;"><img src="data:image/gif;base64,R0lGODlhEAALAPQAAP///zMzM+Li4tra2u7u7jk5OTMzM1hYWJubm4CAgMjIyE9PT29vb6KiooODg8vLy1JSUjc3N3Jycuvr6+Dg4Pb29mBgYOPj4/X19cXFxbOzs9XV1fHx8TMzMzMzMzMzMyH5BAkLAAAAIf4aQ3JlYXRlZCB3aXRoIGFqYXhsb2FkLmluZm8AIf8LTkVUU0NBUEUyLjADAQAAACwAAAAAEAALAAAFLSAgjmRpnqSgCuLKAq5AEIM4zDVw03ve27ifDgfkEYe04kDIDC5zrtYKRa2WQgAh+QQJCwAAACwAAAAAEAALAAAFJGBhGAVgnqhpHIeRvsDawqns0qeN5+y967tYLyicBYE7EYkYAgAh+QQJCwAAACwAAAAAEAALAAAFNiAgjothLOOIJAkiGgxjpGKiKMkbz7SN6zIawJcDwIK9W/HISxGBzdHTuBNOmcJVCyoUlk7CEAAh+QQJCwAAACwAAAAAEAALAAAFNSAgjqQIRRFUAo3jNGIkSdHqPI8Tz3V55zuaDacDyIQ+YrBH+hWPzJFzOQQaeavWi7oqnVIhACH5BAkLAAAALAAAAAAQAAsAAAUyICCOZGme1rJY5kRRk7hI0mJSVUXJtF3iOl7tltsBZsNfUegjAY3I5sgFY55KqdX1GgIAIfkECQsAAAAsAAAAABAACwAABTcgII5kaZ4kcV2EqLJipmnZhWGXaOOitm2aXQ4g7P2Ct2ER4AMul00kj5g0Al8tADY2y6C+4FIIACH5BAkLAAAALAAAAAAQAAsAAAUvICCOZGme5ERRk6iy7qpyHCVStA3gNa/7txxwlwv2isSacYUc+l4tADQGQ1mvpBAAIfkECQsAAAAsAAAAABAACwAABS8gII5kaZ7kRFGTqLLuqnIcJVK0DeA1r/u3HHCXC/aKxJpxhRz6Xi0ANAZDWa+kEAA7" alt=""><div>Detecting location...</div></div>
+	</div>
+</div>
+<div class="provided-by">
+	This site uses the 500px API, but is not endorsed or certified by 500px.<br />
+	Photos displayed on this site are under the copyright of their owners.
+</div>
+<script type="text/x-handlebars-template" id="waterfall-tpl">
+{{#photos}}
+	<div class="item">
+		{{#if my_location}}
+		<a href="https://www.google.ee/maps/search/{{my_location}}/@{{my_location}},17z/" target="_blank"><img src="http://maps.googleapis.com/maps/api/staticmap?key=AIzaSyC9H9Ri1eGKGDr-q9m-Ahc96P90RxcQxRA&sensor=true&size=268x268&scale=2&zoom=15&markers={{my_location}}" width="268" height="268" /></a>
+		<div class="item-info">Your location</div>
+		{{else}}
+		<a href="https://500px.com{{url}}" target="_blank"><img src="{{images.[0].url}}" width="268" height="268" /></a>
+		<div class="item-info"><span class="info-left">Rating: {{rating}}</span>{{#if distance_m}} <span class="info-right">{{compass_p}} {{distance_m}}m</span>{{/if}}</div>
+		{{/if}}
+	</div>
+{{/photos}}
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="js/libs/handlebars/handlebars.js"></script>
+<script src="js/libs/latlon.js"></script>
+<script src="js/waterfall.min.js"></script>
+<script>
+jQuery(function($){
+	$( document ).on('click', 'a[target="_blank"]', function(e) {
+		var url = $(this).attr('href');
+		if (typeof ga != 'undefined') {
+			ga('send', 'event', 'new window', 'click', url);
+		}
+	});
+
+	function getHashValue(key) {
+		var matches = location.hash.match(new RegExp(key+'=([^&]*)'));
+		return matches ? matches[1] : null;
+	}
+
+	var latitude = getHashValue('lat');
+	var longitude = getHashValue('lon');
+
+	if (!latitude || !longitude) {
+		if (typeof navigator.geolocation == "object")
+		{
+			navigator.geolocation.getCurrentPosition(
+				function(position) {
+					window.location.hash = 'lat='+ position.coords.latitude +'&lon='+ position.coords.longitude;
+					showContent(position.coords.latitude, position.coords.longitude);
+				},
+				function(error) {
+					$('#waterfall-loading').find('div').first().html(error.message);
+				},
+				{maximumAge:60000, timeout:10000, enableHighAccuracy: true}
+			);
+		}
+		return false;
+	}
+
+	showContent(latitude, longitude);
+
+	function showContent(latitude, longitude) {
+		$('#waterfall-loading').remove();
+
+		$('#container').waterfall({
+			itemCls: 'item',
+			colWidth: 300,
+			gutterWidth: 16,
+			gutterHeight: 16,
+			checkImagesLoaded: false,
+			isAnimated: true,
+			maxCol: 3,
+			maxPage: 1,
+			dataType: 'json',
+			callbacks: {
+				renderData: function (response, dataType) {
+					var p1 = new LatLon(latitude, longitude);
+					if (!response.photos) {return false;}
+					for ( i in response.photos)
+					{
+						var p2 = new LatLon(response.photos[i].latitude, response.photos[i].longitude);
+						var compassReading = p1.finalBearingTo(p2);
+						response.photos[i].compass_p = Dms.compassPoint(compassReading, 2);
+						response.photos[i].distance_m = parseFloat(p1.distanceTo(p2).toPrecision(2));
+					}
+					response.photos.sort(function(thisObject,thatObject) {
+						if (thisObject.distance_m > thatObject.distance_m)
+						{
+							return 1;
+						}
+						else if (thisObject.distance_m < thatObject.distance_m)
+						{
+							return -1;
+						}
+						return 0;
+					});
+
+					var tpl,
+						template,
+						resultNum = response.photos.length;
+
+					if ( resultNum == 0 && !$('.item').length) {
+						$('#container').waterfall('pause', function() {
+							$('#waterfall-message').html('<p style="color:#666;">no data</p>');
+						});
+					}
+					else
+					{
+						if ( resultNum < 19) {
+							$('#container').waterfall('pause', function() {
+								//$('#waterfall-message').html('<p style="color:#666;">no more data</p>');
+							});
+						}
+						$('.provided-by').show();
+					}
+					if (!$('.item').length)
+					{
+						response.photos.unshift({my_location: latitude +','+ longitude});
+					}
+
+					if ( dataType === 'json' ||  dataType === 'jsonp'  ) { // json or jsonp format
+						tpl = $('#waterfall-tpl').html();
+						template = Handlebars.compile(tpl);
+
+						return template(response);
+					} else { // html format
+						return response;
+					}
+				}
+			},
+			path: function(page) {
+				return 'https://api.500px.com/v1/photos/search?sdk_key=d94f38bf8cdd6e5857ffb3faba57612fff5c12ec&image_size=3&sort=created_at&rpp=14&geo='+ latitude +','+ longitude +',0.4km&page='+ page;
+			}
+		});
+	}
+});
+</script>
+</body>
+</html>
