@@ -28,14 +28,14 @@
 	</div>
 </div>
 <div class="provided-by">
-	This site uses the Ajapaik API, but is not endorsed or certified by Ajapaik.<br />
+	This site uses the API by Ajapaik, but it's not endorsed, sponsored or certified by Ajapaik.<br />
 	Photos displayed on this site are under the copyright of their owners.
 </div>
 <script type="text/x-handlebars-template" id="waterfall-tpl">
 {{#result}}
 	<div class="item">
 		{{#if my_location}}
-		<a href="https://www.google.ee/maps/search/{{my_location}}/@{{my_location}},17z/" target="_blank"><img src="https://maps.googleapis.com/maps/api/staticmap?key=AIzaSyC9H9Ri1eGKGDr-q9m-Ahc96P90RxcQxRA&sensor=true&size=268x268&scale=2&zoom=15&markers={{my_location}}" width="268" height="268" /></a>
+		<a href="https://www.google.com/maps/search/{{my_location}}/@{{my_location}},17z/" target="_blank"><img src="https://maps.googleapis.com/maps/api/staticmap?key=AIzaSyC9H9Ri1eGKGDr-q9m-Ahc96P90RxcQxRA&sensor=true&size=268x268&scale=2&zoom=15&markers={{my_location}}" width="268" height="268" /></a>
 		<div class="item-info">Your location</div>
 		{{else}}
 		<a href="pt-item.html#id={{id}}" target="_blank"><img src="{{image_url}}" width="268" /></a>
